@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class cars extends Model
+class Car extends Model
 {
     use HasFactory;
 
-    protected function casts()
+    public static function create(array $all)
+    {
+    }
+
+    protected function casts(): array
     {
         return [
             'date' => 'date',
