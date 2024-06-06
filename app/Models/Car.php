@@ -9,7 +9,11 @@ class Car extends Model
 {
     use HasFactory;
 
-    protected function casts()
+    public static function create(array $all)
+    {
+    }
+
+    protected function casts(): array
     {
         return [
             'date' => 'date',
