@@ -6,7 +6,7 @@ use App\Models\cars;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
-class carsFactory extends Factory
+class CarsFactory extends Factory
 {
     protected $model = cars::class;
 
