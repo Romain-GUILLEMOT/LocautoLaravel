@@ -21,9 +21,8 @@ class UsersController extends Controller
                 ->orWhere('last_name', 'like', '%' . $request->search . '%');
         }
         //This take automatically page query parameters.
-        $users = $users->paginate(20);
         //return users index view
-        return $users;
+        return $users->paginate(20);
     }
     public function index(Request $request)
     {
