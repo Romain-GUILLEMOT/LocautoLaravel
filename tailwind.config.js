@@ -13,6 +13,17 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                'dark-violet': '#0f002d',
+                'light-violet': '#7149d8',
+                'button-violet': '#5736ac',
+                'box-violet': '#240a47',
+                'secondary-box-violet': '#5f34a7',
+                'secondary-button-violet': '#52309d',
+                'black-bg': '#010023',
+                'text-violet': '#502382',
+                'light-text-violet': '#502382',
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
