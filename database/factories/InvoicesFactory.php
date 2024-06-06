@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Invoices;
+use App\Models\Invoice;
 use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 
 class InvoicesFactory extends Factory
 {
-    protected $model = Invoices::class;
+    protected $model = Invoice::class;
 
     public function definition(): array
     {
