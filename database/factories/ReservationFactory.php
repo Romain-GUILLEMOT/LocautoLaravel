@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\cars;
+use App\Models\Car;
 use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,8 +19,8 @@ class ReservationFactory extends Factory
             'updated_at' => Carbon::now(),
             'date_in' => Carbon::now(),
             'date_out' => Carbon::now(),
-
-            'cars_id' => cars::factory(),
+            'status' => $this->faker->word(),
+            'cars_id' => Car::factory(),
             'user_id' => User::factory(),
         ];
     }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -36,7 +36,7 @@ class UsersController extends Controller
         $user->update($request->all());
         $users = $this->getUsers($request);
 
-        return redirect()->route('admin.users.index', compact('users'))->with('success', 'User updated successfully');
+        return redirect()->route('users.index', compact('users'))->with('success', 'User updated successfully');
     }
     public function destroy(Request $request, User $user)
     {

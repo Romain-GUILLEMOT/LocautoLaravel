@@ -12,7 +12,7 @@ class Reservation extends Model
 
     public function cars(): BelongsTo
     {
-        return $this->belongsTo(cars::class);
+        return $this->belongsTo(Car::class);
     }
 
     public function user(): BelongsTo
