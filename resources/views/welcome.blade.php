@@ -20,45 +20,43 @@
             width: 100%;
             height: 100vh;
         }
-
     </style>
 </head>
 <body>
 <div class="bg-cover-screen">
     <div>
-        <header class="grid grid-cols-2 mx-32">
+        <header class="grid grid-cols-2 mx-4 md:mx-32">
             <div class="flex gap-x-4">
-                <img src="{{ asset("assets/img/logo.png") }}" class="my-8 h-20 w-20" alt="Logo"/>
-                <p class="font-bold text-3xl text-white my-auto">Locauto</p>
+                <img src="{{ asset("assets/img/logo.png") }}" class="my-8 h-12 w-12 md:h-20 md:w-20" alt="Logo"/>
+                <p class="font-bold text-xl md:text-3xl text-white my-auto">Locauto</p>
             </div>
-            <div class="ml-auto text-white flex gap-x-16 my-12 text-xl">
-                <a href="#" class="relative text-xl w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-white after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left">
+            <div class="ml-auto text-white flex gap-x-4 md:gap-x-16 my-8 md:my-12 text-lg md:text-xl">
+                <a href="#" class="relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-white after:w-full after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-left">
                     Accueil</a>
-                <a href="#" class="relative text-xl w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-white after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left">
+                <a href="#" class="relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-white after:w-full after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-left">
                     Voitures</a>
-                <a href="#" class="relative text-xl w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-white after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left">
+                <a href="#" class="relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-white after:w-full after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-left">
                     Contact</a>
-                <a href="#" class="relative text-xl w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-white after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left">
+                <a href="#" class="relative w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-white after:w-full after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-left">
                     Connexion/Crée un compte</a>
             </div>
         </header>
-        <div class="ml-96 mt-24">
-            <h1 class="text-5xl font-bold text-white">
+        <div class="mt-12 md:mt-24 mx-4 md:mx-96">
+            <h1 class="text-3xl md:text-5xl font-bold text-white">
                 Louez votre voiture<br>éléctrique
             </h1>
-            <h2 class="text-xl font-semibold text-white opacity-50">
+            <h2 class="text-lg md:text-xl font-semibold text-white opacity-50">
                 Conduisez l'avenir dès aujourd'hui
             </h2>
             <div class="mt-4">
                 <a href="/vehicles" class="duration-500 hover:opacity-50 bg-white text-purple-700 font-bold py-2 px-4 rounded-full mr-4">
                     Voir les véhicules
                 </a>
-                <a href="#concept" class="duration-500  hover:opacity-50 bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
+                <a href="#concept" class="duration-500 hover:opacity-50 bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
                     En savoir plus
                 </a>
             </div>
         </div>
-
     </div>
     <div class="absolute bottom-0 inset-x-0 text-center mb-8 text-white">
         <div class="animate-bounce bg-button-violet inline-block p-4 rounded-full">
