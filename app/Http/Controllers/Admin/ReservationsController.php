@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class ReservationsController extends Controller
 {
@@ -39,14 +39,14 @@ class ReservationsController extends Controller
     {
         $reservation->update($request->all());
         $reservations = $this->getReservations($request);
-        return redirect()->route('admin.reservations.index', compact('reservations'))->with('success', 'Reservation updated successfully');
+        return redirect()->route('reservations.index', compact('reservations'))->with('success', 'Reservation updated successfully');
 
     }
     public function destroy(Request $request, Reservation $reservation)
     {
         $reservation->delete();
         $reservations = $this->getReservations($request);
-        return redirect()->route('admin.reservations.index', compact('reservations'))->with('success', 'Reservation deleted successfully');
+        return redirect()->route('reservations.index', compact('reservations'))->with('success', 'Reservation deleted successfully');
 
     }
 

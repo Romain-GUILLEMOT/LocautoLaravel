@@ -70,8 +70,7 @@
 
         </div>
     </div>
-    <div class="w-1/2 bg-cover bg-no-repeat" >
-    </div>
+
 </div>
 </body>
 </html>

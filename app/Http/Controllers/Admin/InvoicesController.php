@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Reservation;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class InvoicesController extends Controller
 {
@@ -37,13 +37,13 @@ class InvoicesController extends Controller
     {
         $invoice->update($request->all());
         $invoices = $this->getInvoices($request);
-        return redirect()->route('admin.invoices.index', compact('invoices'))->with('success', 'Invoice updated successfully');
+        return redirect()->route('invoices.index', compact('invoices'))->with('success', 'Invoice updated successfully');
     }
     public function destroy(Request $request, Invoice $invoice)
     {
         $invoice->delete();
         $invoices = $this->getInvoices($request);
-        return redirect()->route('admin.invoices.index', compact('invoices'))->with('success', 'Invoice deleted successfully');
+        return redirect()->route('invoices.index', compact('invoices'))->with('success', 'Invoice deleted successfully');
     }
 
 }
