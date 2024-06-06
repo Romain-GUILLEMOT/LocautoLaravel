@@ -21,27 +21,91 @@
         .text-black {
             color: black;
         }
+        #nav-wheel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            padding: 1rem 2rem;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        #nav-wheel a {
+            margin: 0.5rem 0;
+            font-size: 1.2rem;
+            color: #6e40c9;
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            width: 100%;
+            text-align: center;
+        }
+        #nav-wheel a:hover {
+            transform: scale(1.05);
+            color: #8844ee;
+            background-color: rgba(110, 64, 201, 0.1);
+        }
+        #nav-wheel-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+        kbd {
+            background-color: #eee;
+            border-radius: 3px;
+            border: 1px solid #b4b4b4;
+            box-shadow:
+                0 1px 1px rgba(0, 0, 0, 0.2),
+                0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
+            color: #333;
+            display: inline-block;
+            font-size: 0.85em;
+            font-weight: 700;
+            line-height: 1;
+            padding: 2px 4px;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body class="bg-gradient text-black font-sans min-h-screen flex">
-<nav class=" h-full flex flex-col justify-between">
-    <div class="text-white text-justify mx-2 my-auto space-y-2">
-        <a href="#dashboard" class="hover:scale-110 transform transition duration-300">Dashboard</a><br/>
-        <a href="#users" class="hover:scale-110 transform transition duration-300">Users</a><br/>
-        <a href="#invoices" class="hover:scale-110 transform transition duration-300">Invoices</a><br/>
-        <a href="#cars" class="hover:scale-110 transform transition duration-300">Cars</a><br/>
-        <a href="#reservations" class="hover:scale-110 transform transition duration-300">Reservations</a><br/>
-    </div>
-    <div class="mt-16 mb-2 self-end">
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="inline">
-            @csrf
-            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transform transition duration-300">Logout</button>
-        </form>
-    </div>
+<div id="nav-wheel-bg"></div>
+<nav id="nav-wheel">
+    <a href="#dashboard">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+    </a>
+    <a href="#users">
+        <i class="fas fa-users"></i> Users
+    </a>
+    <a href="#invoices">
+        <i class="fas fa-file-invoice"></i> Invoices
+    </a>
+    <a href="#cars">
+        <i class="fas fa-car"></i> Cars
+    </a>
+    <a href="#reservations">
+        <i class="fas fa-calendar-check"></i> Reservations
+    </a>
 </nav>
 
+<!-- Contenu principal -->
 <div class="container py-8 px-4 box-bg rounded-lg shadow-lg mx-auto mt-8">
     <h1 class="text-4xl font-bold mb-6 text-center">Users</h1>
+    <p class="text-black p-2 text-center">To open the menu press <kbd>Ctrl+I</kbd> or <kbd>Cmd+I</kbd>.</p>
+
+    <div class="text-center mb-4">
+    </div>
 
     @if(session('success'))
         <div class="bg-green-500 text-white p-4 rounded mb-4">
@@ -147,26 +211,34 @@
         document.getElementById('modal').classList.remove('flex');
     }
 
-    document.onkeydown = function(evt) {
-        evt = evt || window.event;
-        var isEscape = false;
-        if ("key" in evt) {
-            isEscape = (evt.key === "Escape" || evt.key === "Esc");
-        } else {
-            isEscape = (evt.keyCode === 27);
-        }
-        if (isEscape) {
-            closeModal();
-        }
-    };
-
-    document.getElementById('search-input').addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
+    document.addEventListener('keydown', function(event) {
+        if ((event.ctrlKey || event.metaKey) && event.key === 'i') {
             event.preventDefault();
-            document.getElementById('search-form').submit();
+            toggleNavWheel();
+        } else if (event.key === 'Escape') {
+            closeNavWheel();
+            closeModal();
         }
     });
 
+    function toggleNavWheel() {
+        const navWheel = document.getElementById('nav-wheel');
+        const navWheelBg = document.getElementById('nav-wheel-bg');
+        if (navWheel.style.display === 'none' || navWheel.style.display === '') {
+            navWheel.style.display = 'flex';
+            navWheelBg.style.display = 'block';
+        } else {
+            navWheel.style.display = 'none';
+            navWheelBg.style.display = 'none';
+        }
+    }
+
+    function closeNavWheel() {
+        document.getElementById('nav-wheel').style.display = 'none';
+        document.getElementById('nav-wheel-bg').style.display = 'none';
+    }
+
+    document.getElementById('nav-wheel-bg').addEventListener('click', closeNavWheel);
 </script>
 </body>
 </html>
