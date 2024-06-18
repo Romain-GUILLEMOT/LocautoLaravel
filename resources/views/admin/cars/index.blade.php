@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voitures</title>
     <link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gradient text-black font-sans min-h-screen flex">
@@ -72,10 +73,11 @@
     @include('admin.cars.modals.create')
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     function openModal(car) {
         document.getElementById('modal').classList.remove('hidden');
-        document.getElementById('modal-form').action = `/cars/${car.id}`;
+        document.getElementById('modal-form').action = `/admin/cars/${car.id}`;
         document.getElementById('name').value = car.name;
         document.getElementById('price').value = car.price;
         document.getElementById('model').value = car.model;
@@ -90,6 +92,12 @@
 
     function openCreateModal() {
         document.getElementById('create-modal').classList.remove('hidden');
+        flatpickr("#create-date", {
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "F j, Y",
+            allowInput: true
+        });
     }
 
     function closeCreateModal() {
