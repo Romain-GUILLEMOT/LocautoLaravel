@@ -54,9 +54,7 @@ class CarController extends Controller
     public function update(Request $request, Car $car)
     {
         $updateData = $request->all();
-
         $updateData['available'] = $request->get('available') === 'on';
-
         $car->update($updateData);
         $cars = $this->getCar($request);        $cars = $this->getCar($request);
         return redirect()->route('admin.cars.index', compact('cars'))->with('success', 'Car updated successfully');
