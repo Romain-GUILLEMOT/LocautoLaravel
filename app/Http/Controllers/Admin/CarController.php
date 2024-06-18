@@ -54,7 +54,7 @@ class CarController extends Controller
         $car->update($request->all());
         $cars = $this->getCar($request);
 
-        return view('admin.car.edit', compact('cars'))->with('success', 'Car edited successfully');
+        return view('admin.cars.edit', compact('cars'))->with('success', 'Car edited successfully');
     }
 
     public function update(Request $request, Car $car)
@@ -62,7 +62,7 @@ class CarController extends Controller
         $car->update($request->all());
         $cars = $this->getCar($request);
 
-        return redirect()->route('admin.car.index', compact('cars'))->with('success', 'Car updated successfully');
+        return redirect()->route('admin.cars.index', compact('cars'))->with('success', 'Car updated successfully');
     }
 
     public function destroy(Request $request, Car $car)
@@ -70,6 +70,6 @@ class CarController extends Controller
         $car->delete();
         $cars = $this->getCar($request);
 
-        return redirect()->route('admin.car.index', compact('cars'))->with('success', 'Car has been deleted');
+        return redirect()->route('admin.cars.index', compact('cars'))->with('success', 'Car has been deleted');
     }
 }
