@@ -1,0 +1,35 @@
+<div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center hidden">
+    <div class="bg-white rounded-lg p-6 text-black w-1/2 shadow-lg">
+        <h2 class="text-2xl font-bold mb-4">Détails de la voiture</h2>
+        <form id="modal-form" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="mb-4">
+                <label for="name" class="block text-sm font-medium">Nom</label>
+                <input type="text" id="name" name="name" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+            </div>
+            <div class="mb-4">
+                <label for="price" class="block text-sm font-medium">Prix</label>
+                <input type="text" id="price" name="price" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+            </div>
+            <div class="mb-4">
+                <label for="model" class="block text-sm font-medium">Modèle</label>
+                <input type="text" id="model" name="model" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+            </div>
+            <div class="mb-4">
+                <label for="date" class="block text-sm font-medium">Date</label>
+                <input type="date" id="date" name="date" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+            </div>
+            <div class="mb-4">
+                <label for="brand" class="block text-sm font-medium">Marque</label>
+                <input type="text" id="brand" name="brand" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+            </div>
+            <div class="mb-4">
+                <label for="state" class="block text-sm font-medium">État</label>
+                <input type="text" id="state" name="state" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+            </div>
+            <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Enregistrer</button>
+            <button type="button" onclick="closeModal()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Fermer</button>
+        </form>
+    </div>
+</div>

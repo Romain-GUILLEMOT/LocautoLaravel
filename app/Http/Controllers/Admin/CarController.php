@@ -26,22 +26,16 @@ class CarController extends Controller
     {
         $cars = $this->getCar($request);
 
-        return view('admin.car.index', compact('cars'));
+        return view('admin.cars.index', compact('cars'));
     }
 
-    public function create(Request $request, Car $car)
-    {
-        $car->create($request->all());
-        $cars = $this->getCar($request);
 
-        return view('admin.car.create', compact('cars'))->with('success', 'Car created successfully');
-    }
 
     public function store(Request $request)
     {
         $cars = $this->getCar($request);
 
-        return redirect()->route('car.index', compact('cars'))->with('success', 'Car created successfully');
+        return redirect()->route('admin.cars.index', compact('cars'))->with('success', 'Car created successfully');
     }
 
     public function edit(Request $request,Car $car)

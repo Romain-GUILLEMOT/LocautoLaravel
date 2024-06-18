@@ -8,24 +8,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gradient text-black font-sans min-h-screen flex">
-<div id="nav-wheel-bg"></div>
-<nav id="nav-wheel">
-    <a href="#dashboard">
-        <i class="fas fa-tachometer-alt"></i> Dashboard
-    </a>
-    <a href="#users">
-        <i class="fas fa-users"></i> Users
-    </a>
-    <a href="#invoices">
-        <i class="fas fa-file-invoice"></i> Invoices
-    </a>
-    <a href="#cars">
-        <i class="fas fa-car"></i> Cars
-    </a>
-    <a href="#reservations">
-        <i class="fas fa-calendar-check"></i> Reservations
-    </a>
-</nav>
+@include('admin.navbar')
+
 
 <!-- Contenu principal -->
 <div class="container py-8 px-4 box-bg rounded-lg shadow-lg mx-auto mt-8">
@@ -239,37 +223,7 @@
         </div>
     </div>
 </div>
-<script>
 
-
-    document.addEventListener('keydown', function(event) {
-        if ((event.ctrlKey || event.metaKey) && event.key === 'i') {
-            event.preventDefault();
-            toggleNavWheel();
-        } else if (event.key === 'Escape') {
-            closeNavWheel();
-        }
-    });
-
-    function toggleNavWheel() {
-        const navWheel = document.getElementById('nav-wheel');
-        const navWheelBg = document.getElementById('nav-wheel-bg');
-        if (navWheel.style.display === 'none' || navWheel.style.display === '') {
-            navWheel.style.display = 'flex';
-            navWheelBg.style.display = 'block';
-        } else {
-            navWheel.style.display = 'none';
-            navWheelBg.style.display = 'none';
-        }
-    }
-
-    function closeNavWheel() {
-        document.getElementById('nav-wheel').style.display = 'none';
-        document.getElementById('nav-wheel-bg').style.display = 'none';
-    }
-
-    document.getElementById('nav-wheel-bg').addEventListener('click', closeNavWheel);
-</script>
 </body>
 
 

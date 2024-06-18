@@ -16,9 +16,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+
 
     Route::prefix('admin')->group(function () {
         Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
@@ -28,13 +26,24 @@ Route::middleware([
             'users' => UsersController::class,
             'invoices' => InvoicesController::class,
             'reservations' => ReservationsController::class,
+            'cars' => \App\Http\Controllers\Admin\CarController::class,
+
         ];
 
         foreach ($controllers as $resource => $controller) {
-            Route::resource($resource, $controller, ['only' => ['index', 'update', 'destroy']])->missing(function (Request $request) {
-                return Redirect::route('admin.index');
-            });
+            Route::resource($resource, $controller, ['only' => ['index', 'store', 'update', 'destroy']])
+                ->names([
+                    'index' => "admin.{$resource}.index",
+                    'update' => "admin.{$resource}.update",
+                    'store' => "admin.{$resource}.store",
+                    'destroy' => "admin.{$resource}.destroy"
+
+                ])
+                ->missing(function (Request $request) {
+                    return Redirect::route('admin.index');
+                });
         }
+
     });
 
 });
