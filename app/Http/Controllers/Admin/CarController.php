@@ -35,6 +35,17 @@ class CarController extends Controller
     {
         $cars = $this->getCar($request);
 
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'price' => 'required|numeric',
+            'model' => 'required|max:255',
+            'date' => 'required|date',
+            'brand' => 'required|max:255',
+            'state' => 'required|max:255',
+        ]);
+
+        $car = Car::create($validatedData);
+
         return redirect()->route('admin.cars.index', compact('cars'))->with('success', 'Car created successfully');
     }
 
