@@ -21,6 +21,9 @@ Route::middleware([
     })->name('dashboard');
 
     Route::prefix('admin')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
+
+
         $controllers = [
             'users' => UsersController::class,
             'invoices' => InvoicesController::class,

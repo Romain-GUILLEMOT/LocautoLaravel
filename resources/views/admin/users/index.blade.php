@@ -6,78 +6,7 @@
     <title>Users</title>
     <link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        .bg-gradient {
-            background: linear-gradient(135deg, #6e40c9 0%, #8844ee 50%, #9f6eff 100%);
-        }
-        .box-bg {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .input-bg {
-            background: rgba(255, 255, 255, 0.5);
-        }
-        .text-black {
-            color: black;
-        }
-        #nav-wheel {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            padding: 1rem 2rem;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-        #nav-wheel a {
-            margin: 0.5rem 0;
-            font-size: 1.2rem;
-            color: #6e40c9;
-            text-decoration: none;
-            transition: transform 0.3s ease, color 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            width: 100%;
-            text-align: center;
-        }
-        #nav-wheel a:hover {
-            transform: scale(1.05);
-            color: #8844ee;
-            background-color: rgba(110, 64, 201, 0.1);
-        }
-        #nav-wheel-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            z-index: 999;
-        }
-        kbd {
-            background-color: #eee;
-            border-radius: 3px;
-            border: 1px solid #b4b4b4;
-            box-shadow:
-                0 1px 1px rgba(0, 0, 0, 0.2),
-                0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
-            color: #333;
-            display: inline-block;
-            font-size: 0.85em;
-            font-weight: 700;
-            line-height: 1;
-            padding: 2px 4px;
-            white-space: nowrap;
-        }
-    </style>
+
 </head>
 <body class="bg-gradient text-black font-sans min-h-screen flex">
 <div id="nav-wheel-bg"></div>
