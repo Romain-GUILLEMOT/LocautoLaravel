@@ -34,6 +34,10 @@
                     <option value="reconditionne">Reconditionné</option>
                 </select>
             </div>
+            <div class="mb-4">
+                <label for="create-available" class="block text-sm font-medium">Disponible</label>
+                <input type="checkbox" id="create-available" name="available" class="mt-1 p-2 rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+            </div>
             <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Créer</button>
             <button type="button" onclick="closeCreateModal()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Fermer</button>
         </form>

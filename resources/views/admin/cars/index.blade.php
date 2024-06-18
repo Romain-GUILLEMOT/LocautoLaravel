@@ -40,6 +40,7 @@
             <th class="py-4 px-6">Date</th>
             <th class="py-4 px-6">Marque</th>
             <th class="py-4 px-6">État</th>
+            <th class="py-4 px-6">Disponible</th>
             <th class="py-4 px-6">Actions</th>
         </tr>
         </thead>
@@ -52,6 +53,8 @@
                 <td class="py-4 px-6 border-b border-gray-300">{{ $car->date }}</td>
                 <td class="py-4 px-6 border-b border-gray-300">{{ $car->brand }}</td>
                 <td class="py-4 px-6 border-b border-gray-300">{{ $car->state }}</td>
+                <td class="py-4 px-6 border-b border-gray-300">{{ $car->available ? "oui" : "non" }}</td>
+
                 <td class="py-4 px-6 border-b border-gray-300 flex space-x-2">
                     <button type="button" onclick="openModal({{ json_encode($car) }})" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Détails</button>
                     <form action="{{ route('admin.cars.destroy', $car) }}" method="POST" class="inline-block">
@@ -84,6 +87,8 @@
         document.getElementById('date').value = car.date;
         document.getElementById('brand').value = car.brand;
         document.getElementById('state').value = car.state;
+        document.getElementById('available').checked = !!car.available;
+
     }
 
     function closeModal() {

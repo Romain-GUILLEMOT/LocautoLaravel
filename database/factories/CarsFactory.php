@@ -21,6 +21,8 @@ class CarsFactory extends Factory
             'date' => Carbon::now(),
             'brand' => $this->faker->word(),
             'state' => $this->faker->word(),
+            'available' => $this->faker->boolean(),
+
         ];
     }
 }

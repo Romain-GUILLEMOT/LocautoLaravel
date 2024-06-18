@@ -42,6 +42,7 @@ class CarController extends Controller
             'date' => 'required|date',
             'brand' => 'required|max:255',
             'state' => 'required|max:255',
+            'available' => 'required|boolean',
         ]);
 
         Car::create($validatedData);
@@ -52,9 +53,12 @@ class CarController extends Controller
 
     public function update(Request $request, Car $car)
     {
-        $car->update($request->all());
-        $cars = $this->getCar($request);
+        $updateData = $request->all();
 
+        $updateData['available'] = $request->get('available') === 'on';
+
+        $car->update($updateData);
+        $cars = $this->getCar($request);        $cars = $this->getCar($request);
         return redirect()->route('admin.cars.index', compact('cars'))->with('success', 'Car updated successfully');
     }
 
@@ -63,6 +67,6 @@ class CarController extends Controller
         $car->delete();
         $cars = $this->getCar($request);
 
-        return redirect()->route('admin.car.index', compact('cars'))->with('success', 'Car has been deleted');
+        return redirect()->route('admin.cars.index', compact('cars'))->with('success', 'Car has been deleted');
     }
 }
