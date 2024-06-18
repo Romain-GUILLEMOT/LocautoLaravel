@@ -44,7 +44,7 @@ class CarController extends Controller
             'state' => 'required|max:255',
         ]);
 
-        $car = Car::create($validatedData);
+        Car::create($validatedData);
 
         return redirect()->route('admin.cars.index', compact('cars'))->with('success', 'Car created successfully');
     }
