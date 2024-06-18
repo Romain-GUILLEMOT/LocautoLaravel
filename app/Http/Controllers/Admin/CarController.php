@@ -34,7 +34,7 @@ class CarController extends Controller
     public function store(Request $request)
     {
         $cars = $this->getCar($request);
-
+        dd($request->all());
         return redirect()->route('admin.cars.index', compact('cars'))->with('success', 'Car created successfully');
     }
 

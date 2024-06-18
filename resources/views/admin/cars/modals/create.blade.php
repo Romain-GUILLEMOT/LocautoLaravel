@@ -9,7 +9,10 @@
             </div>
             <div class="mb-4">
                 <label for="create-price" class="block text-sm font-medium">Prix</label>
-                <input type="text" id="create-price" name="price" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+                <div class="relative">
+                    <input type="number" id="create-price" name="price" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black pr-10">
+                    <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500">€</span>
+                </div>
             </div>
             <div class="mb-4">
                 <label for="create-model" class="block text-sm font-medium">Modèle</label>
@@ -17,7 +20,7 @@
             </div>
             <div class="mb-4">
                 <label for="create-date" class="block text-sm font-medium">Date</label>
-                <input type="date" id="create-date" name="date" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+                <input type="text" id="create-date" name="date" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black">
             </div>
             <div class="mb-4">
                 <label for="create-brand" class="block text-sm font-medium">Marque</label>
@@ -25,7 +28,11 @@
             </div>
             <div class="mb-4">
                 <label for="create-state" class="block text-sm font-medium">État</label>
-                <input type="text" id="create-state" name="state" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+                <select id="create-state" name="state" class="mt-1 p-2 w-full rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+                    <option value="neuf">Neuf</option>
+                    <option value="occasion">Occasion</option>
+                    <option value="reconditionne">Reconditionné</option>
+                </select>
             </div>
             <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Créer</button>
             <button type="button" onclick="closeCreateModal()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Fermer</button>
