@@ -35,7 +35,7 @@ class UsersController extends Controller
         $user->update($request->all());
         $users = $this->getUsers($request);
 
-        return redirect()->route('users.index', compact('users'))->with('success', 'User updated successfully');
+        return redirect()->route('admin.users.index', compact('users'))->with('success', 'User updated successfully');
     }
     public function destroy(Request $request, User $user)
     {
