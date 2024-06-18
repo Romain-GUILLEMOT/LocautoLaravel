@@ -8,10 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Car extends Model
 {
     use HasFactory;
-
-    public static function create(array $all)
-    {
-    }
+    protected $fillable = ['name', 'model', 'brand', 'price', 'state', 'date'];
 
     protected function casts(): array
     {
