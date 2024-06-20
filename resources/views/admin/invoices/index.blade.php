@@ -55,8 +55,9 @@
                 </td>
                 <td class="py-4 px-6 border-b border-gray-300 flex space-x-2 justify-center">
                     <button type="button" onclick="openEditModal({{ json_encode($invoice) }})" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Modifier</button>
-                    <button type="button" onclick="openConfirmDeleteModal({{ $invoice->id }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer</button>
-
+                    @if(!$invoice->trashed())
+                        <button type="button" onclick="openConfirmDeleteModal({{ $invoice->id }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer</button>
+                    @endif
                 </td>
             </tr>
         @endforeach

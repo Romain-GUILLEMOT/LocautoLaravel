@@ -32,4 +32,17 @@ class Reservation extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($reservation) {
+            $reservation->invoices()->delete();
+        });
+    }
 }

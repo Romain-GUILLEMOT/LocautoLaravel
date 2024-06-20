@@ -48,7 +48,7 @@
         <label class="flex items-center space-x-2">
             <input id="archived-checkbox" type="checkbox" name="archived"
                    {{ request('archived') ? 'checked' : '' }} class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-            <span>Show archived</span>
+            <span>Afficher supprimer</span>
         </label>
 
         <button type="submit" class="hidden">Rechercher</button>
@@ -86,12 +86,14 @@
                     <button type="button" onclick="openModal({{ json_encode($car) }})"
                             class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Détails
                     </button>
+                    @if(!$car->trashed())
                     <form action="{{ route('admin.cars.destroy', $car) }}" method="POST" class="inline-block">
 
                         <button type="button" onclick="openConfirmDeleteModal({{ $car->id }})"
                                 class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer
                         </button>
                     </form>
+                    @endif
                 </td>
             </tr>
         @endforeach
