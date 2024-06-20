@@ -42,10 +42,8 @@
             <th class="py-4 px-6">Réservation</th>
             <th class="py-4 px-6">Montant</th>
             <th class="py-4 px-6">Statut</th>
-            @if(!$invoice->trashed())
 
             <th class="py-4 px-6">Actions</th>
-            @endif
 
         </tr>
         </thead>
@@ -57,13 +55,15 @@
                 <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $invoice->reservation->car->price }}€</td>
                 <td class="py-4 px-6 border-b border-gray-300 text-center">                    {!! $invoice->status ? '<i class="fas fa-check text-green-500 mx-auto"></i>' : '<i class="fas fa-times text-red-500 mx-auto"></i>' !!}
                 </td>
-                @if(!$invoice->trashed())
 
                 <td class="py-4 px-6 border-b border-gray-300 flex space-x-2 justify-center">
+                    @if(!$invoice->trashed())
+
                     <button type="button" onclick="openEditModal({{ json_encode($invoice) }})" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Modifier</button>
                         <button type="button" onclick="openConfirmDeleteModal({{ $invoice->id }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer</button>
+                    @endif
+
                 </td>
-                @endif
 
             </tr>
         @endforeach
