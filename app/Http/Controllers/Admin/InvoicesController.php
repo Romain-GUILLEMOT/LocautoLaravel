@@ -13,9 +13,6 @@ class InvoicesController extends Controller
     public function index(Request $request)
     {
         $invoices = Invoice::with('reservation.car', 'user')
-            ->when($request->trashed, function ($query) {
-                return $query->onlyTrashed();
-            })
             ->paginate(20);
 
         $users = User::all();

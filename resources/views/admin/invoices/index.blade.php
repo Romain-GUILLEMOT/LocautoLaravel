@@ -28,10 +28,7 @@
 
     <form id="search-form" method="GET" action="{{ route('admin.invoices.index') }}" class="mb-6 flex space-x-2">
         <input type="text" id="search-input" name="search" placeholder="Rechercher par statut..." class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black w-full" value="{{ request('search') }}">
-        <label class="flex items-center space-x-2">
-            <input id="trashed-checkbox" type="checkbox" name="trashed" {{ request('trashed') ? 'checked' : '' }} class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-            <span>Afficher supprimés</span>
-        </label>
+
         <button type="submit" class="hidden">Rechercher</button>
     </form>
 
@@ -42,36 +39,22 @@
             <th class="py-4 px-6">Réservation</th>
             <th class="py-4 px-6">Montant</th>
             <th class="py-4 px-6">Statut</th>
-
             <th class="py-4 px-6">Actions</th>
-
         </tr>
         </thead>
         <tbody>
         @foreach($invoices as $invoice)
             <tr class="bg-white hover:bg-gray-100 transition">
                 <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $invoice->user->first_name }} {{ $invoice->user->last_name }}</td>
-                @if(!$invoice->trashed())
-
                 <td class="py-4 px-6 border-b border-gray-300 text-center text-blue-600 underline"><a href={{"/admin/reservations?search=" . $invoice->reservation->id}} >{{ $invoice->reservation->id }}</a></td>
-                @else
-                    <td class="py-4 px-6 border-b border-gray-300 text-center text-blue-600 underline">SUPPRIMER WAZAA</td>
-
-                @endif
-
                 <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $invoice->reservation->car->price }}€</td>
                 <td class="py-4 px-6 border-b border-gray-300 text-center">                    {!! $invoice->status ? '<i class="fas fa-check text-green-500 mx-auto"></i>' : '<i class="fas fa-times text-red-500 mx-auto"></i>' !!}
                 </td>
-
                 <td class="py-4 px-6 border-b border-gray-300 flex space-x-2 justify-center">
-                    @if(!$invoice->trashed())
-
                     <button type="button" onclick="openEditModal({{ json_encode($invoice) }})" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Modifier</button>
-                        <button type="button" onclick="openConfirmDeleteModal({{ $invoice->id }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer</button>
-                    @endif
+                    <button type="button" onclick="openConfirmDeleteModal({{ $invoice->id }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer</button>
 
                 </td>
-
             </tr>
         @endforeach
         </tbody>
