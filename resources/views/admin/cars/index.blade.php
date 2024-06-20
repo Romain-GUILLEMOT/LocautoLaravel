@@ -65,7 +65,10 @@
             <th class="py-4 px-6">Marque</th>
             <th class="py-4 px-6">État</th>
             <th class="py-4 px-6">Disponible</th>
+            @if(!$car->trashed())
+
             <th class="py-4 px-6">Actions</th>
+            @endif
         </tr>
         </thead>
         <tbody>
@@ -81,20 +84,21 @@
                     {!! $car->available ? '<i class="fas fa-check text-green-500 mx-auto"></i>' : '<i class="fas fa-times text-red-500 mx-auto"></i>' !!}
                 </td>
 
+                @if(!$car->trashed())
 
                 <td class="py-4 px-6 border-b border-gray-300 flex space-x-2 justify-center">
                     <button type="button" onclick="openModal({{ json_encode($car) }})"
                             class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Détails
                     </button>
-                    @if(!$car->trashed())
                     <form action="{{ route('admin.cars.destroy', $car) }}" method="POST" class="inline-block">
 
                         <button type="button" onclick="openConfirmDeleteModal({{ $car->id }})"
                                 class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer
                         </button>
                     </form>
-                    @endif
                 </td>
+                @endif
+
             </tr>
         @endforeach
         </tbody>
