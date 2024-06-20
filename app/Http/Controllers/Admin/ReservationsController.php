@@ -13,7 +13,22 @@ class ReservationsController extends Controller
     private function getReservations(Request $request) {
         $reservations = Reservation::query()->with('user', 'car');
         if($request->search) {
-            $reservations->where('status', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+
+            $reservations->where(function($query) use ($search) {
+                $query->where('id', 'like', '%' . $search . '%')
+                    ->orWhereHas('user', function ($q) use ($search) {
+                        $q->where('first_name', 'like', '%' . $search . '%')
+                            ->orWhere('last_name', 'like', '%' . $search . '%')
+                            ->orWhere('name', 'like', '%' . $search . '%')
+                            ->orWhere('email', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('car', function ($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%')
+                            ->orWhere('model', 'like', '%' . $search . '%')
+                            ->orWhere('brand', 'like', '%' . $search . '%');
+                    });
+            });
         }
         if($request->sort && in_array($request->sort, ['date_in', 'date_out'])) {
             if($request->from && $request->to) {
@@ -53,13 +68,17 @@ class ReservationsController extends Controller
     public function update(Request $request, Reservation $reservation)
     {
         $validated = $request->validate([
-            'date_in' => 'required|date',
-            'date_out' => 'required|date',
+
             'status' => 'required|string|in:pending,closed,in_progress',
             'car_id' => 'required|exists:cars,id',
             'user_id' => 'required|exists:users,id',
         ]);
-
+        if(!isset($validated['date_in'])) {
+            $validated['date_in'] = $reservation->date_in;
+        }
+        if(!isset($validated['date_out'])) {
+            $validated['date_out'] = $reservation->date_out;
+        }
         $reservation->update($validated);
 
         return redirect()->route('admin.reservations.index')->with('success', 'Reservation updated successfully.');

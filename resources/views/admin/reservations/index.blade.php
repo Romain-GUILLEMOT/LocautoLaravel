@@ -13,6 +13,7 @@
 
 <div class="container py-8 px-4 box-bg rounded-lg shadow-lg mx-auto mt-8">
     <h1 class="text-4xl font-bold mb-6 text-center">Reservations</h1>
+    <p class="text-black p-2 text-center">Pour ouvrir le menu veuillez appuyer sur <kbd>Ctrl+I</kbd> ou <kbd>Cmd+I</kbd>.</p>
 
     <div class="text-center mb-4">
         <button onclick="openCreateModal()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Reservation</button>
@@ -27,22 +28,23 @@
     <form id="search-form" method="GET" action="{{ route('admin.reservations.index') }}" class="mb-6 flex space-x-2">
         <input type="text" id="search-input" name="search" placeholder="Search by status..." class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black w-full" value="{{ request('search') }}">
         <select name="sort" class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black">
-            <option value="" disabled selected>Sort by</option>
-            <option value="date_in" {{ request('sort') == 'date_in' ? 'selected' : '' }}>Date In</option>
-            <option value="date_out" {{ request('sort') == 'date_out' ? 'selected' : '' }}>Date Out</option>
+            <option value="" disabled selected>Trier par</option>
+            <option value="date_in" {{ request('sort') == 'date_in' ? 'selected' : '' }}>Date d'entrer</option>
+            <option value="date_out" {{ request('sort') == 'date_out' ? 'selected' : '' }}>Date de sortie</option>
         </select>
         <input type="date" name="from" class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black" value="{{ request('from') }}">
         <input type="date" name="to" class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black" value="{{ request('to') }}">
-        <button type="submit" class="hidden">Search</button>
+        <button type="submit" class="hidden">Recherche</button>
     </form>
 
     <table class="min-w-full rounded-lg overflow-hidden shadow-lg">
         <thead class="bg-gray-100">
         <tr>
-            <th class="py-4 px-6">User</th>
-            <th class="py-4 px-6">Car</th>
-            <th class="py-4 px-6">Date In</th>
-            <th class="py-4 px-6">Date Out</th>
+            <th class="py-4 px-6">Id</th>
+            <th class="py-4 px-6">Utilisateur</th>
+            <th class="py-4 px-6">Voiture</th>
+            <th class="py-4 px-6">Date d'entrer</th>
+            <th class="py-4 px-6">Date de sortie</th>
             <th class="py-4 px-6">Status</th>
             <th class="py-4 px-6">Actions</th>
         </tr>
@@ -50,12 +52,22 @@
         <tbody>
         @foreach($reservations as $reservation)
             <tr class="bg-white hover:bg-gray-100 transition">
-                <td class="py-4 px-6 border-b border-gray-300">{{ $reservation->user->name }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $reservation->car->model }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $reservation->date_in }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $reservation->date_out }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $reservation->status }}</td>
-                <td class="py-4 px-6 border-b border-gray-300 flex space-x-2">
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $reservation->id }}</td>
+
+                <td class="py-4 px-6 border-b border-gray-300 text-center text-blue-600 underline"><a href={{"/admin/users?search=" . $reservation->user->id}}>{{ $reservation->user->first_name }} {{ $reservation->user->last_name }}</a></td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center text-blue-600 underline"><a href={{"/admin/cars?search=" . $reservation->car->id}}>{{ $reservation->car->model }}</a></td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $reservation->date_in }}</td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $reservation->date_out }}</td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center">
+                    @if ($reservation->status == 'in_progress')
+                        <i class="fas fa-clock text-yellow-500"></i>
+                    @elseif ($reservation->status == 'closed')
+                        <i class="fas fa-check-circle text-green-500"></i>
+                    @elseif ($reservation->status == 'pending')
+                        <i class="fas fa-hourglass-half text-blue-500"></i>
+                    @endif
+                </td>
+                <td class="py-4 px-6 border-b border-gray-300 flex space-x-2 justify-center">
                     <button type="button" onclick="openEditModal({{ json_encode($reservation) }})" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Edit</button>
                     <button type="button" onclick="openConfirmDeleteModal({{ $reservation->id }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
                 </td>

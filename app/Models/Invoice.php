@@ -5,10 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Invoice extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'user_id',
+        'reservation_id',
+        'uuid',
+        'status',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($invoice) {
+            $invoice->uuid = (string) Str::uuid();
+        });
+    }
 
     public function user(): BelongsTo
     {
@@ -18,12 +36,5 @@ class Invoice extends Model
     public function reservation(): BelongsTo
     {
         return $this->belongsTo(Reservation::class);
-    }
-
-    protected function casts()
-    {
-        return [
-            'uuid' => 'string',
-        ];
     }
 }

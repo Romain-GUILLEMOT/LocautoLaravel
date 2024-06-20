@@ -6,7 +6,6 @@
     <title>Voitures</title>
     <link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -20,7 +19,9 @@
     <p class="text-black p-2 text-center">Pour ouvrir le menu, appuyez sur <kbd>Ctrl+I</kbd> ou <kbd>Cmd+I</kbd>.</p>
 
     <div class="text-center mb-4">
-        <button onclick="openCreateModal()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Ajouter une voiture</button>
+        <button onclick="openCreateModal()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Ajouter
+            une voiture
+        </button>
     </div>
 
     @if(session('success'))
@@ -30,16 +31,23 @@
     @endif
 
     <form id="search-form" method="GET" action="{{ route('admin.cars.index') }}" class="mb-6 flex space-x-2">
-        <input type="text" id="search-input" name="search" placeholder="Rechercher..." class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black w-full" value="{{ request('search') }}">
+        <input type="text" id="search-input" name="search" placeholder="Rechercher..."
+               class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black w-full"
+               value="{{ request('search') }}">
 
-        <select id="availability-select" name="availability" class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+        <select id="availability-select" name="availability"
+                class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black">
             <option value="all" {{ request('availability') == 'all' ? 'selected' : '' }}>ALL</option>
-            <option value="available" {{ request('availability') == 'available' ? 'selected' : '' }}>Only available</option>
-            <option value="not_available" {{ request('availability') == 'not_available' ? 'selected' : '' }}>Only not available</option>
+            <option value="available" {{ request('availability') == 'available' ? 'selected' : '' }}>Only available
+            </option>
+            <option value="not_available" {{ request('availability') == 'not_available' ? 'selected' : '' }}>Only not
+                available
+            </option>
         </select>
 
         <label class="flex items-center space-x-2">
-            <input id="archived-checkbox" type="checkbox" name="archived" {{ request('archived') ? 'checked' : '' }} class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+            <input id="archived-checkbox" type="checkbox" name="archived"
+                   {{ request('archived') ? 'checked' : '' }} class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
             <span>Show archived</span>
         </label>
 
@@ -63,22 +71,26 @@
         <tbody>
         @foreach($cars as $car)
             <tr class="bg-white hover:bg-gray-100 transition">
-                <td class="py-4 px-6 border-b border-gray-300">{{ $car->name }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $car->price }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $car->model }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $car->date }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $car->brand }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $car->state }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $car->name }}</td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $car->price }}€</td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $car->model }}</td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $car->date }}</td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $car->brand }}</td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $car->state }}</td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center">
                     {!! $car->available ? '<i class="fas fa-check text-green-500 mx-auto"></i>' : '<i class="fas fa-times text-red-500 mx-auto"></i>' !!}
                 </td>
 
 
-                <td class="py-4 px-6 border-b border-gray-300 flex space-x-2">
-                    <button type="button" onclick="openModal({{ json_encode($car) }})" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Détails</button>
+                <td class="py-4 px-6 border-b border-gray-300 flex space-x-2 justify-center">
+                    <button type="button" onclick="openModal({{ json_encode($car) }})"
+                            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Détails
+                    </button>
                     <form action="{{ route('admin.cars.destroy', $car) }}" method="POST" class="inline-block">
 
-                        <button type="button" onclick="openConfirmDeleteModal({{ $car->id }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer</button>
+                        <button type="button" onclick="openConfirmDeleteModal({{ $car->id }})"
+                                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer
+                        </button>
                     </form>
                 </td>
             </tr>
@@ -90,7 +102,7 @@
         {{ $cars->links() }}
     </div>
 
-    @include('admin.cars.modals.details')
+    @include('admin.cars.modals.edit')
     @include('admin.cars.modals.create')
     @include('admin.cars.modals.delete')
 
@@ -109,6 +121,7 @@
         carIdToDelete = null;
         document.getElementById('confirm-delete-modal').classList.add('hidden');
     }
+
     document.getElementById('confirm-delete-button').addEventListener('click', function () {
         if (carIdToDelete) {
             const form = document.createElement('form');
@@ -122,6 +135,7 @@
             form.submit();
         }
     });
+
     function openModal(car) {
         document.getElementById('modal').classList.remove('hidden');
         document.getElementById('modal-form').action = `/admin/cars/${car.id}`;

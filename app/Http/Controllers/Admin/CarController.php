@@ -18,6 +18,7 @@ class CarController extends Controller
             $car
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('model', 'like', '%' . $request->search . '%')
+                ->orWhere('id', 'like', '%' . $request->search . '%')
                 ->orWhere('price', 'like', '%' . $request->search . '%')
                 ->orWhere('brand', 'like', '%' . $request->search . '%');
         }

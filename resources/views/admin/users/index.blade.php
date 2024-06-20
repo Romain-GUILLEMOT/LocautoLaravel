@@ -12,9 +12,8 @@
 
 <!-- Contenu principal -->
 <div class="container py-8 px-4 box-bg rounded-lg shadow-lg mx-auto mt-8">
-    <h1 class="text-4xl font-bold mb-6 text-center">Users</h1>
-    <p class="text-black p-2 text-center">To open the menu press <kbd>Ctrl+I</kbd> or <kbd>Cmd+I</kbd>.</p>
-
+    <h1 class="text-4xl font-bold mb-6 text-center">Utilisateurs</h1>
+    <p class="text-black p-2 text-center">Pour ouvrir le menu veuillez appuyer sur <kbd>Ctrl+I</kbd> ou <kbd>Cmd+I</kbd>.</p>
     <div class="text-center mb-4">
         <button onclick="openCreateModal()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add User</button>
     </div>
@@ -27,14 +26,14 @@
 
     <form id="search-form" method="GET" action="{{ route('admin.users.index') }}" class="mb-6 flex space-x-2">
         <input type="text" id="search-input" name="search" placeholder="Rechercher..." class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black w-full" value="{{ request('search') }}">
-        <button type="submit" class="hidden">Search</button>
+        <button type="submit" class="hidden">Recherche</button>
     </form>
 
     <table class="min-w-full rounded-lg overflow-hidden shadow-lg">
         <thead class="bg-gray-100">
         <tr>
-            <th class="py-4 px-6">First Name</th>
-            <th class="py-4 px-6">Last Name</th>
+            <th class="py-4 px-6">Prénom</th>
+            <th class="py-4 px-6">Nom</th>
             <th class="py-4 px-6">Email</th>
             <th class="py-4 px-6">Actions</th>
         </tr>
@@ -42,10 +41,10 @@
         <tbody>
         @foreach($users as $user)
             <tr class="bg-white hover:bg-gray-100 transition">
-                <td class="py-4 px-6 border-b border-gray-300">{{ $user->first_name }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $user->last_name }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $user->email }}</td>
-                <td class="py-4 px-6 border-b border-gray-300 flex space-x-2">
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $user->first_name }}</td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $user->last_name }}</td>
+                <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $user->email }}</td>
+                <td class="py-4 px-6 border-b border-gray-300 flex space-x-2 justify-center">
                     <button type="button" onclick="openEditModal({{ json_encode($user) }})" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Edit</button>
                     <button type="button" onclick="openConfirmDeleteModal({{ $user->id }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
                 </td>
