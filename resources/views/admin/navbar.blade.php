@@ -12,19 +12,19 @@
 <div id="nav-wheel-bg"></div>
 <nav id="nav-wheel">
     <a href="{{ route('admin.dashboard') }}">
-        <i class="fas fa-tachometer-alt"></i> Dashboard
+        <i class="fas fa-tachometer-alt"></i> Tableau de bord
     </a>
     <a href="{{ route('admin.users.index') }}">
-        <i class="fas fa-users"></i> Users
+        <i class="fas fa-users"></i> Utilisateurs
     </a>
     <a href="{{ route('admin.invoices.index') }}">
-        <i class="fas fa-file-invoice"></i> Invoices
+        <i class="fas fa-file-invoice"></i> Factures
     </a>
     <a href="{{ route('admin.cars.index') }}">
-        <i class="fas fa-car"></i> Cars
+        <i class="fas fa-car"></i> Voitures
     </a>
     <a href="{{ route('admin.reservations.index') }}">
-        <i class="fas fa-calendar-check"></i> Reservations
+        <i class="fas fa-calendar-check"></i> Réservations
     </a>
 </nav>
 

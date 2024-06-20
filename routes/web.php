@@ -10,7 +10,9 @@ use App\Http\Controllers\Admin\ReservationsController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/dashboard', function () {
+    return Redirect::route('admin.dashboard');
+});
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

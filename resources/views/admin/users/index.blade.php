@@ -15,7 +15,7 @@
     <h1 class="text-4xl font-bold mb-6 text-center">Utilisateurs</h1>
     <p class="text-black p-2 text-center">Pour ouvrir le menu veuillez appuyer sur <kbd>Ctrl+I</kbd> ou <kbd>Cmd+I</kbd>.</p>
     <div class="text-center mb-4">
-        <button onclick="openCreateModal()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add User</button>
+        <button onclick="openCreateModal()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Ajouter un utilisateur</button>
     </div>
 
     @if(session('success'))
@@ -45,8 +45,8 @@
                 <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $user->last_name }}</td>
                 <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $user->email }}</td>
                 <td class="py-4 px-6 border-b border-gray-300 flex space-x-2 justify-center">
-                    <button type="button" onclick="openEditModal({{ json_encode($user) }})" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Edit</button>
-                    <button type="button" onclick="openConfirmDeleteModal({{ $user->id }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
+                    <button type="button" onclick="openEditModal({{ json_encode($user) }})" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Modifier</button>
+                    <button type="button" onclick="openConfirmDeleteModal({{ $user->id }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer</button>
                 </td>
             </tr>
         @endforeach
