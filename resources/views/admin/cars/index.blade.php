@@ -6,6 +6,9 @@
     <title>Voitures</title>
     <link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gradient text-black font-sans min-h-screen flex">
@@ -28,8 +31,21 @@
 
     <form id="search-form" method="GET" action="{{ route('admin.cars.index') }}" class="mb-6 flex space-x-2">
         <input type="text" id="search-input" name="search" placeholder="Rechercher..." class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black w-full" value="{{ request('search') }}">
-        <button type="submit" class="bg-blue-500 text-white p-3 rounded hover:bg-blue-600">Rechercher</button>
+
+        <select id="availability-select" name="availability" class="p-3 rounded border border-gray-300 bg-white bg-opacity-50 text-black">
+            <option value="all" {{ request('availability') == 'all' ? 'selected' : '' }}>ALL</option>
+            <option value="available" {{ request('availability') == 'available' ? 'selected' : '' }}>Only available</option>
+            <option value="not_available" {{ request('availability') == 'not_available' ? 'selected' : '' }}>Only not available</option>
+        </select>
+
+        <label class="flex items-center space-x-2">
+            <input id="archived-checkbox" type="checkbox" name="archived" {{ request('archived') ? 'checked' : '' }} class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+            <span>Show archived</span>
+        </label>
+
+        <button type="submit" class="hidden">Rechercher</button>
     </form>
+
 
     <table class="min-w-full rounded-lg overflow-hidden shadow-lg">
         <thead class="bg-gray-100">
@@ -53,14 +69,16 @@
                 <td class="py-4 px-6 border-b border-gray-300">{{ $car->date }}</td>
                 <td class="py-4 px-6 border-b border-gray-300">{{ $car->brand }}</td>
                 <td class="py-4 px-6 border-b border-gray-300">{{ $car->state }}</td>
-                <td class="py-4 px-6 border-b border-gray-300">{{ $car->available ? "oui" : "non" }}</td>
+                <td class="py-4 px-6 border-b border-gray-300">
+                    {!! $car->available ? '<i class="fas fa-check text-green-500 mx-auto"></i>' : '<i class="fas fa-times text-red-500 mx-auto"></i>' !!}
+                </td>
+
 
                 <td class="py-4 px-6 border-b border-gray-300 flex space-x-2">
                     <button type="button" onclick="openModal({{ json_encode($car) }})" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Détails</button>
                     <form action="{{ route('admin.cars.destroy', $car) }}" method="POST" class="inline-block">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer</button>
+
+                        <button type="button" onclick="openConfirmDeleteModal({{ $car->id }})" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer</button>
                     </form>
                 </td>
             </tr>
@@ -74,10 +92,36 @@
 
     @include('admin.cars.modals.details')
     @include('admin.cars.modals.create')
+    @include('admin.cars.modals.delete')
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
+    let carIdToDelete = null;
+
+    function openConfirmDeleteModal(carId) {
+        carIdToDelete = carId;
+        document.getElementById('confirm-delete-modal').classList.remove('hidden');
+    }
+
+    function closeConfirmDeleteModal() {
+        carIdToDelete = null;
+        document.getElementById('confirm-delete-modal').classList.add('hidden');
+    }
+    document.getElementById('confirm-delete-button').addEventListener('click', function () {
+        if (carIdToDelete) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/admin/cars/${carIdToDelete}`;
+            form.innerHTML = `
+                @csrf
+            @method('DELETE')
+            `;
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
     function openModal(car) {
         document.getElementById('modal').classList.remove('hidden');
         document.getElementById('modal-form').action = `/admin/cars/${car.id}`;
@@ -109,5 +153,31 @@
         document.getElementById('create-modal').classList.add('hidden');
     }
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let debounceTimeout;
+
+        const searchInput = document.getElementById('search-input');
+        const availabilitySelect = document.getElementById('availability-select');
+        const archivedCheckbox = document.getElementById('archived-checkbox');
+        const searchForm = document.getElementById('search-form');
+
+        searchInput.addEventListener('input', function () {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(function () {
+                searchForm.submit();
+            }, 1000); // 3000 ms = 3 seconds
+        });
+
+        availabilitySelect.addEventListener('change', function () {
+            searchForm.submit();
+        });
+
+        archivedCheckbox.addEventListener('change', function () {
+            searchForm.submit();
+        });
+    });
+</script>
+
 </body>
 </html>

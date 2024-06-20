@@ -9,6 +9,11 @@ class CarController extends Controller
 {
     private function getCar(Request $request){
         $car = Car::query();
+        if($request->archived) {
+            //With trashed
+            $car->onlyTrashed();
+
+        }
         if($request->search){
             $car
                 ->where('name', 'like', '%' . $request->search . '%')
@@ -19,6 +24,13 @@ class CarController extends Controller
         if($request->state){
             $car
                 ->where('state', $request->state);
+        }
+        if ($request->availability) {
+            if ($request->availability == 'available') {
+                $car->where('available', true);
+            } elseif ($request->availability == 'not_available') {
+                $car->where('available', false);
+            }
         }
         return $car->paginate(20);
     }
@@ -34,7 +46,6 @@ class CarController extends Controller
     public function store(Request $request)
     {
         $cars = $this->getCar($request);
-
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'price' => 'required|numeric',
@@ -42,21 +53,14 @@ class CarController extends Controller
             'date' => 'required|date',
             'brand' => 'required|max:255',
             'state' => 'required|max:255',
-            'available' => 'required|boolean',
         ]);
+        $validatedData['available'] = $request->get('available') === 'on';
 
         Car::create($validatedData);
 
         return redirect()->route('admin.cars.index', compact('cars'))->with('success', 'Car created successfully');
     }
 
-    public function edit(Request $request,Car $car)
-    {
-        $car->update($request->all());
-        $cars = $this->getCar($request);
-
-        return view('admin.cars.edit', compact('cars'))->with('success', 'Car edited successfully');
-    }
 
     public function update(Request $request, Car $car)
     {

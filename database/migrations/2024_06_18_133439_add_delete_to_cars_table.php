@@ -23,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('cars', function (Blueprint $table) {
-            //
+            $table->dropSoftDeletes();
+            $table->boolean('available')->default(false);
         });
     }
 };
