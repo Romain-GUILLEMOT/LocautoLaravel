@@ -51,7 +51,14 @@
         @foreach($invoices as $invoice)
             <tr class="bg-white hover:bg-gray-100 transition">
                 <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $invoice->user->first_name }} {{ $invoice->user->last_name }}</td>
+                @if(!$invoice->trashed())
+
                 <td class="py-4 px-6 border-b border-gray-300 text-center text-blue-600 underline"><a href={{"/admin/reservations?search=" . $invoice->reservation->id}} >{{ $invoice->reservation->id }}</a></td>
+                @else
+                    <td class="py-4 px-6 border-b border-gray-300 text-center text-blue-600 underline">SUPPRIMER WAZAA</td>
+
+                @endif
+
                 <td class="py-4 px-6 border-b border-gray-300 text-center">{{ $invoice->reservation->car->price }}€</td>
                 <td class="py-4 px-6 border-b border-gray-300 text-center">                    {!! $invoice->status ? '<i class="fas fa-check text-green-500 mx-auto"></i>' : '<i class="fas fa-times text-red-500 mx-auto"></i>' !!}
                 </td>
